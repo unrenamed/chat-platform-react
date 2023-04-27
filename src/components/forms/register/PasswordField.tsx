@@ -1,14 +1,14 @@
-import { FC, useState } from 'react';
+import { FC, useState } from "react";
 import {
   InputContainer,
   InputLabel,
   InputField,
   InputContainerHeader,
   InputError,
-} from '../../../utils/styles';
-import { RegisterFormFieldProps } from '../../../utils/types/form';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import styles from '../index.module.scss';
+} from "../../../utils/styles";
+import { RegisterFormFieldProps } from "../../../utils/types/form";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import styles from "../index.module.scss";
 
 export const PasswordField: FC<RegisterFormFieldProps> = ({
   register,
@@ -20,32 +20,38 @@ export const PasswordField: FC<RegisterFormFieldProps> = ({
     <InputContainer>
       <InputContainerHeader>
         <InputLabel htmlFor="password">Password</InputLabel>
-        {errors.password && <InputError>{errors.password.message}</InputError>}
+        {errors.password && (
+          <InputError data-testid="password-error">
+            {errors.password.message}
+          </InputError>
+        )}
       </InputContainerHeader>
       <div className={styles.passwordContainer}>
         <InputField
-          type={showPassword ? 'text' : 'password'}
+          type={showPassword ? "text" : "password"}
           id="password"
-          {...register('password', {
-            required: 'Password is Required',
+          {...register("password", {
+            required: "Password is Required",
             minLength: {
               value: 8,
-              message: 'Must be at least 8 characters',
+              message: "Must be at least 8 characters",
             },
             maxLength: {
               value: 32,
-              message: 'Max characters is 32',
+              message: "Max characters is 32",
             },
           })}
         />
         {showPassword ? (
           <AiFillEyeInvisible
+            data-testid="hide-password"
             size={24}
             onClick={() => setShowPassword(false)}
             cursor="pointer"
           />
         ) : (
           <AiFillEye
+            data-testid="show-password"
             size={24}
             onClick={() => setShowPassword(true)}
             cursor="pointer"
